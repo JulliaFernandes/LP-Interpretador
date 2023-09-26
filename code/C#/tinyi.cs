@@ -14,7 +14,7 @@ namespace TinyInterpreter
 
             try
             {
-               // Lexeme lex;
+               Lexeme lex;
                 using (LexicalAnalysis l = new LexicalAnalysis(args[1]))
                 {
                     SyntaticAnalysis s = new SyntaticAnalysis(l);
