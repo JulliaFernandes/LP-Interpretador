@@ -6,7 +6,8 @@ namespace TinyInterpreter
     {
         static void Main(string[] args)
         {
-            if (args.Length != 2)
+            Console.WriteLine("num: " + args.Length);
+            if (args.Length != 1)
             {
                 Console.WriteLine("Usage: " + args[0] + " [Tiny program]");
                 Environment.Exit(1);
@@ -14,8 +15,8 @@ namespace TinyInterpreter
 
             try
             {
-               Lexeme lex;
-                using (LexicalAnalysis l = new LexicalAnalysis(args[1]))
+               //Lexeme lex;
+                using (LexicalAnalysis l = new LexicalAnalysis(args[0]))
                 {
                     SyntaticAnalysis s = new SyntaticAnalysis(l);
                     Command cmd = s.Start();

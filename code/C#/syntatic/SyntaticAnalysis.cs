@@ -15,6 +15,7 @@ namespace TinyInterpreter
 
         public Command Start()
         {
+            Console.WriteLine("FINAL ");
             Command cmd = ProcProgram();
             Eat(TokenType.TT_END_OF_FILE);
             return cmd;
@@ -23,17 +24,22 @@ namespace TinyInterpreter
         private void Advance()
         {
             m_current = m_lex.NextToken();
+               Console.WriteLine("Mtype2: " + m_current.Type);
         }
 
         private void Eat(TokenType type)
         {
+            Console.WriteLine("type: " + type);
+            Console.WriteLine("Mtype: " + m_current.Type);
             if (type == m_current.Type)
             {
                 Advance();
             }
             else
             {
+                Console.WriteLine("aaaaaaaaa");
                 ShowError();
+                
             }
         }
 
@@ -164,7 +170,7 @@ namespace TinyInterpreter
             return cmd;
         }
 
-        // <while> ::= while <boolexpr> do <cmdlist> done
+         //<while> ::= while <boolexpr> do <cmdlist> done
         private WhileCommand ProcWhile()
         {
             Eat(TokenType.TT_WHILE);

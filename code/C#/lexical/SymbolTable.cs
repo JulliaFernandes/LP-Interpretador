@@ -11,7 +11,7 @@ public class SymbolTable
 		InitializeSymbolTable();
 	}
 
-	private void InitializeSymbolTable()
+	public void InitializeSymbolTable()
 	{
 		// Symbols
 		m_symbols[";"] = TokenType.TT_SEMICOLON;
