@@ -15,7 +15,6 @@ namespace TinyInterpreter
 
         public Command Start()
         {
-            Console.WriteLine("FINAL ");
             Command cmd = ProcProgram();
             Eat(TokenType.TT_END_OF_FILE);
             return cmd;
@@ -24,20 +23,24 @@ namespace TinyInterpreter
         private void Advance()
         {
             m_current = m_lex.NextToken();
-               Console.WriteLine("Mtype2: " + m_current.Type);
+             Console.WriteLine("Mtype proximo: " + m_current.Type);
         }
 
         private void Eat(TokenType type)
         {
             Console.WriteLine("type: " + type);
             Console.WriteLine("Mtype: " + m_current.Type);
+            if(m_current.Type == TokenType.TT_END_OF_FILE){
+                return;
+            }
+
             if (type == m_current.Type)
             {
+                System.Console.WriteLine("ENTROUUUUUUUUUUU");
                 Advance();
             }
             else
             {
-                Console.WriteLine("aaaaaaaaa");
                 ShowError();
                 
             }
@@ -67,6 +70,7 @@ namespace TinyInterpreter
         // <program> ::= program <cmdlist>
         private Command ProcProgram()
         {
+            System.Console.WriteLine("1");
             Eat(TokenType.TT_PROGRAM);
             Command cmd = ProcCmdList();
             return cmd;
@@ -75,6 +79,7 @@ namespace TinyInterpreter
         // <cmdlist> ::= <cmd> { <cmd> }
         private BlocksCommand ProcCmdList()
         {
+            System.Console.WriteLine("2");
             int line = m_lex.Line;
             BlocksCommand cmds = new BlocksCommand(line);
 
@@ -96,6 +101,7 @@ namespace TinyInterpreter
         // <cmd> ::= (<assign> | <output> | <if> | <while>) ;
         private Command ProcCmd()
         {
+            System.Console.WriteLine("3");
             Command cmd = null;
 
             if (m_current.Type == TokenType.TT_VAR)
@@ -126,6 +132,7 @@ namespace TinyInterpreter
         // <assign> ::= <var> = <intexpr>
         private AssignCommand ProcAssign()
         {
+            System.Console.WriteLine("4");
             int line = m_lex.Line;
 
             Variable var = ProcVar();
@@ -139,6 +146,7 @@ namespace TinyInterpreter
         // <output> ::= output <intexpr>
         private OutputCommand ProcOutput()
         {
+            System.Console.WriteLine("5");
             Eat(TokenType.TT_OUTPUT);
             int line = m_lex.Line;
 
@@ -150,6 +158,7 @@ namespace TinyInterpreter
         // <if> ::= if <boolexpr> then <cmdlist> [ else <cmdlist> ] done
         private IfCommand ProcIf()
         {
+            System.Console.WriteLine("6");
             Eat(TokenType.TT_IF);
             int line = m_lex.Line;
 
@@ -160,6 +169,7 @@ namespace TinyInterpreter
 
             if (m_current.Type == TokenType.TT_ELSE)
             {
+                System.Console.WriteLine("7");
                 Advance();
                 elseCmds = ProcCmdList();
             }
@@ -173,6 +183,7 @@ namespace TinyInterpreter
          //<while> ::= while <boolexpr> do <cmdlist> done
         private WhileCommand ProcWhile()
         {
+            System.Console.WriteLine("8");
             Eat(TokenType.TT_WHILE);
             int line = m_lex.Line;
 
@@ -190,18 +201,22 @@ namespace TinyInterpreter
         //                <intterm> (== | != | < | > | <= | >=) <intterm>
         private BoolExpr ProcBoolExpr()
         {
+            System.Console.WriteLine("9");
             if (m_current.Type == TokenType.TT_FALSE)
             {
+                
                 Advance();
                 return new ConstBoolExpr(m_lex.Line, false);
             }
             else if (m_current.Type == TokenType.TT_TRUE)
             {
+                
                 Advance();
                 return new ConstBoolExpr(m_lex.Line, true);
             }
             else if (m_current.Type == TokenType.TT_NOT)
             {
+                
                 Advance();
                 int line = m_lex.Line;
                 BoolExpr expr = ProcBoolExpr();
@@ -217,26 +232,32 @@ namespace TinyInterpreter
                 {
                     case TokenType.TT_EQUAL:
                         op = MyCustomBoolExpr.Op.EQUAL;
+                        
                         Advance();
                         break;
                     case TokenType.TT_NOT_EQUAL:
                         op = MyCustomBoolExpr.Op.NOT_EQUAL;
+                        
                         Advance();
                         break;
                     case TokenType.TT_LOWER:
                         op = MyCustomBoolExpr.Op.LOWER;
+                        
                         Advance();
                         break;
                     case TokenType.TT_GREATER:
                         op = MyCustomBoolExpr.Op.GREATER;
+                        
                         Advance();
                         break;
                     case TokenType.TT_LOWER_EQUAL:
                         op = MyCustomBoolExpr.Op.LOWER_EQUAL;
+                        
                         Advance();
                         break;
                     case TokenType.TT_GREATER_EQUAL:
                         op = MyCustomBoolExpr.Op.GREATER_EQUAL;
+                    
                         Advance();
                         break;
                     default:
@@ -254,6 +275,7 @@ namespace TinyInterpreter
         // <intexpr> ::= [ + | - ] <intterm> [ (+ | - | * | / | %) <intterm> ]
         private IntExpr ProcIntExpr()
         {
+            System.Console.WriteLine("10");
             bool isNegative = false;
             if (m_current.Type == TokenType.TT_ADD)
             {
@@ -276,7 +298,6 @@ namespace TinyInterpreter
             {
                 left = ProcIntTerm();
             }
-
             if (m_current.Type == TokenType.TT_ADD ||
                 m_current.Type == TokenType.TT_SUB ||
                 m_current.Type == TokenType.TT_MUL ||
@@ -290,23 +311,28 @@ namespace TinyInterpreter
                 {
                     case TokenType.TT_ADD:
                         op = BinaryIntExpr.Op.ADD;
+                    
                         Advance();
                         break;
                     case TokenType.TT_SUB:
                         op = BinaryIntExpr.Op.SUB;
+                    
                         Advance();
                         break;
                     case TokenType.TT_MUL:
                         op = BinaryIntExpr.Op.MUL;
+                    
                         Advance();
                         break;
                     case TokenType.TT_DIV:
                         op = BinaryIntExpr.Op.DIV;
+                    
                         Advance();
                         break;
                     case TokenType.TT_MOD:
                     default:
                         op = BinaryIntExpr.Op.MOD;
+                    
                         Advance();
                         break;
                 }
@@ -315,13 +341,13 @@ namespace TinyInterpreter
 
                 left = new BinaryIntExpr(line, left, op, right);
             }
-
             return left;
         }
 
         // <intterm> ::= <var> | <const> | read
         private IntExpr ProcIntTerm()
         {
+            System.Console.WriteLine("11");
             if (m_current.Type == TokenType.TT_VAR)
             {
                 return ProcVar();
@@ -342,8 +368,10 @@ namespace TinyInterpreter
         // <var> ::= id
         private Variable ProcVar()
         {
+            System.Console.WriteLine("12");
             string tmp = m_current.Token;
             Eat(TokenType.TT_VAR);
+            System.Console.WriteLine("Entrou no 12");
             int line = m_lex.Line;
             Variable var = new Variable(line, tmp);
             return var;
@@ -352,6 +380,7 @@ namespace TinyInterpreter
         // <const> ::= number
         private ConstIntExpr ProcConst()
         {
+            System.Console.WriteLine("13");
             string tmp = m_current.Token;
             Eat(TokenType.TT_NUMBER);
             int line = m_lex.Line;

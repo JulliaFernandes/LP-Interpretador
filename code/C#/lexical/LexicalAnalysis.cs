@@ -33,22 +33,22 @@ public class LexicalAnalysis : IDisposable
 
     public Lexeme NextToken()
     {
-
         int state;
-        Lexeme lex = new Lexeme();
+        Lexeme lex = new Lexeme("", TokenType.TT_END_OF_FILE);
         state = 1;
         while (state != 7 && state != 8)
         {
+            //a função peek ela vai olhar o prox c mas nao avança para ele
             int c;
             if (state == 5)
             {
                 if (m_input.Peek() == '_' || char.IsLetterOrDigit((char)m_input.Peek()))
                 {
-                    c = m_input.Read();
+                    c = m_input.Read(); //le o c e move para o prox c
                 }
                 else
                 {
-                    c = m_input.Peek();
+                    c = m_input.Peek();//ve que é ele mas ainda deixa ele la
                 }
             }
             else if (state == 6)
@@ -70,16 +70,19 @@ public class LexicalAnalysis : IDisposable
             }
 
             Console.WriteLine("MInput " + (char)c);
+            Console.WriteLine("State" + state);
 
             switch (state)
             {
                 case 1:
                     if (c == ' ' || c == '\t' || c == '\r')
                     {
+
                         state = 1;
                     }
                     else if (c == '\n')
                     {
+                        Console.WriteLine("o barra n \n: " + m_line);
                         m_line++;
                         state = 1;
                     }
@@ -112,35 +115,38 @@ public class LexicalAnalysis : IDisposable
                         lex.Token += (char)c;
                         state = 6;
                     }
+                    else if (c == -1)
+                    {
+
+                        Console.WriteLine("else 1 \n: ");
+                        lex.Type = TokenType.TT_END_OF_FILE;
+                        state = 8;
+                        Console.WriteLine("state: " + state);
+                    }
                     else
                     {
-                        if (c == -1)
-                        {
-                            lex.Type = TokenType.TT_END_OF_FILE;
-                            state = 8;
-                        }
-                        else
-                        {
-                            lex.Token += (char)c;
-                            lex.Type = TokenType.TT_INVALID_TOKEN;
-                            state = 8;
-                        }
+                        Console.WriteLine("else 2 \n: ");
+                        lex.Token += (char)c;
+                        lex.Type = TokenType.TT_INVALID_TOKEN;
+                        state = 8;
                     }
                     break;
                 case 2:
                     if (c == '\n')
                     {
+                        Console.WriteLine("Achou \n: ");
                         m_line++;
                         state = 1;
                     }
                     else if (c == -1)
                     {
-                         Console.WriteLine("FINALL2");
+                        Console.WriteLine("FINALL");
                         lex.Type = TokenType.TT_END_OF_FILE;
                         state = 8;
                     }
                     else
                     {
+                        Console.WriteLine("FINALL2");
                         state = 2;
                     }
                     break;
@@ -202,7 +208,7 @@ public class LexicalAnalysis : IDisposable
                     throw new Exception("invalid state");
             }
         }
-
+        System.Console.WriteLine("SAIU DO WHILE");
         if (state == 7)
             lex.Type = m_st.Find(lex.Token);
         return lex;
