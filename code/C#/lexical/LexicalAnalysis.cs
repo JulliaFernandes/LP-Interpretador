@@ -68,7 +68,7 @@ public class LexicalAnalysis : IDisposable
             {
                 c = m_input.Read();
             }
-             System.Console.WriteLine("[" + state + "," + c + "('" + (char)c + "')]");
+             //System.Console.WriteLine("[" + state + "," + c + "('" + (char)c + "')]");
 
             // Console.WriteLine("MInput " + (char)c);
             // Console.WriteLine("State" + state);

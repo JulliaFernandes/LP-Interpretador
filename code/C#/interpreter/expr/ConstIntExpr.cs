@@ -5,6 +5,7 @@ public class ConstIntExpr : IntExpr
     public ConstIntExpr(int line, int value)
         : base(line)
     {
+        System.Console.WriteLine("ConstIntEXPR: " + value);
         m_value = value;
     }
 

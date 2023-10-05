@@ -28,7 +28,8 @@ namespace TinyInterpreter
 
         private void Eat(TokenType type)
         {
-            System.Console.WriteLine("Esperado(..., " + type + "), encontrado (\"" + m_current.Token + "\"," + m_current.Type + ")");
+            System.Console.WriteLine("entrou no eat: " + type + "aaa" + m_current.Type );
+            //System.Console.WriteLine("Esperado(..., " + type + "), encontrado (\"" + m_current.Token + "\"," + m_current.Type + ")");
             // Console.WriteLine("type: " + type); 
             // Console.WriteLine("Mtype: " + m_current.Type);
             if(m_current.Type == TokenType.TT_END_OF_FILE){
@@ -195,7 +196,6 @@ namespace TinyInterpreter
         {
             if (m_current.Type == TokenType.TT_FALSE)
             {
-                
                 Advance();
                 return new ConstBoolExpr(m_lex.Line, false);
             }

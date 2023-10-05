@@ -20,7 +20,7 @@ namespace TinyInterpreter
                 {
                     SyntaticAnalysis s = new SyntaticAnalysis(l);
                     Command cmd = s.Start();
-                    //cmd.Execute();
+                    cmd.Execute();
                 }
             }
             catch (Exception error)

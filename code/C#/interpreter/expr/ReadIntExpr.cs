@@ -14,6 +14,7 @@ public class ReadIntExpr : IntExpr
             Console.WriteLine("Erro de entrada: Valor de entrada inválido.");
             Environment.Exit(1);
         }
+        System.Console.WriteLine("ReadEXPR: " + value);
         return value;
     }
 }

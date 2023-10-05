@@ -1,26 +1,26 @@
+using System;
+
 public class Variable : IntExpr
 {
-    private string name;
-    private int value;
+    private string m_name;
 
     public Variable(int line, string name) : base(line)
     {
-        this.name = name;
-        this.value = 0;
-    }
-
-    public string Name
-    {
-        get { return name; }
-    }
-
-    public void SetValue(int value)
-    {
-        this.value = value;
+        m_name = name;
     }
 
     public override int Expr()
     {
-        return value;
+        return Value();
+    }
+
+    public int Value()
+    {
+        return Memory.Read(m_name);
+    }
+
+    public void SetValue(int value)
+    {
+        Memory.Write(m_name, value);
     }
 }
