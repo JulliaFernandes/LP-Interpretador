@@ -68,9 +68,10 @@ public class LexicalAnalysis : IDisposable
             {
                 c = m_input.Read();
             }
+             System.Console.WriteLine("[" + state + "," + c + "('" + (char)c + "')]");
 
-            Console.WriteLine("MInput " + (char)c);
-            Console.WriteLine("State" + state);
+            // Console.WriteLine("MInput " + (char)c);
+            // Console.WriteLine("State" + state);
 
             switch (state)
             {
@@ -82,7 +83,6 @@ public class LexicalAnalysis : IDisposable
                     }
                     else if (c == '\n')
                     {
-                        Console.WriteLine("o barra n \n: " + m_line);
                         m_line++;
                         state = 1;
                     }
@@ -118,14 +118,11 @@ public class LexicalAnalysis : IDisposable
                     else if (c == -1)
                     {
 
-                        Console.WriteLine("else 1 \n: ");
                         lex.Type = TokenType.TT_END_OF_FILE;
                         state = 8;
-                        Console.WriteLine("state: " + state);
                     }
                     else
                     {
-                        Console.WriteLine("else 2 \n: ");
                         lex.Token += (char)c;
                         lex.Type = TokenType.TT_INVALID_TOKEN;
                         state = 8;
@@ -134,19 +131,16 @@ public class LexicalAnalysis : IDisposable
                 case 2:
                     if (c == '\n')
                     {
-                        Console.WriteLine("Achou \n: ");
                         m_line++;
                         state = 1;
                     }
                     else if (c == -1)
                     {
-                        Console.WriteLine("FINALL");
                         lex.Type = TokenType.TT_END_OF_FILE;
                         state = 8;
                     }
                     else
                     {
-                        Console.WriteLine("FINALL2");
                         state = 2;
                     }
                     break;
@@ -208,7 +202,6 @@ public class LexicalAnalysis : IDisposable
                     throw new Exception("invalid state");
             }
         }
-        System.Console.WriteLine("SAIU DO WHILE");
         if (state == 7)
             lex.Type = m_st.Find(lex.Token);
         return lex;
