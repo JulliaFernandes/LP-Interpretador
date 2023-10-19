@@ -27,7 +27,7 @@ public class MyCustomBoolExpr : BoolExpr // Renomeada para MyCustomBoolExpr
     {
         int v1 = m_left.Expr();
         int v2 = m_right.Expr();
-        System.Console.WriteLine("ProcIF: " + v1 + ", " + v2 + ", " + m_op);
+        //System.Console.WriteLine("ProcIF: " + v1 + ", " + v2 + ", " + m_op);
 
         switch (m_op)
         {
