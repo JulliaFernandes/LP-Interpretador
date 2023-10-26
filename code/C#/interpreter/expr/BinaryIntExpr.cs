@@ -7,7 +7,8 @@ public class BinaryIntExpr : IntExpr
         SUB,
         MUL,
         DIV,
-        MOD
+        MOD,
+        POW
     }
 
     private IntExpr left;
@@ -30,6 +31,8 @@ public class BinaryIntExpr : IntExpr
         {
             case Op.ADD:
                 return v1 + v2;
+            case Op.POW:
+                return (int)Math.Pow(v1, v2);
             case Op.SUB:
                 return v1 - v2;
             case Op.MUL:

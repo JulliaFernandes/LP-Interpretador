@@ -100,7 +100,7 @@ public class LexicalAnalysis : IDisposable
                         lex.Token += (char)c;
                         state = 4;
                     }
-                    else if (c == ';' || c == '+' || c == '-' || c == '*' || c == '/' || c == '%')
+                    else if (c == ';' || c == '+' || c == '-' || c == '*' || c == '/' || c == '%' || c == '^')
                     {
                         lex.Token += (char)c;
                         state = 7;

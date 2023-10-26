@@ -291,7 +291,8 @@ namespace TinyInterpreter
                 m_current.Type == TokenType.TT_SUB ||
                 m_current.Type == TokenType.TT_MUL ||
                 m_current.Type == TokenType.TT_DIV ||
-                m_current.Type == TokenType.TT_MOD)
+                m_current.Type == TokenType.TT_MOD ||
+                m_current.Type == TokenType.TT_POW)
             {
                 int line = m_lex.Line;
 
@@ -300,6 +301,11 @@ namespace TinyInterpreter
                 {
                     case TokenType.TT_ADD:
                         op = BinaryIntExpr.Op.ADD;
+                    
+                        Advance();
+                        break;
+                    case TokenType.TT_POW:
+                        op = BinaryIntExpr.Op.POW;
                     
                         Advance();
                         break;

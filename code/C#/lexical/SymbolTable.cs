@@ -31,6 +31,7 @@ public class SymbolTable
 		m_symbols["*"] = TokenType.TT_MUL;
 		m_symbols["/"] = TokenType.TT_DIV;
 		m_symbols["%"] = TokenType.TT_MOD;
+		m_symbols["^"] = TokenType.TT_POW;
 
 		// Keywords
 		m_symbols["program"] = TokenType.TT_PROGRAM;

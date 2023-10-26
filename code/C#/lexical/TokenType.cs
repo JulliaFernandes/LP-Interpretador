@@ -25,6 +25,7 @@ public enum TokenType
 	TT_MUL,           // *
 	TT_DIV,           // /
 	TT_MOD,           // %
+	TT_POW, 		  // ^
 
 	// Keywords
 	TT_PROGRAM,       // program
@@ -91,6 +92,8 @@ public static class TokenUtility
 				return "DIV";
 			case TokenType.TT_MOD:
 				return "MOD";
+			case TokenType.TT_POW:
+				return "POW";
 
 			// Keywords
 			case TokenType.TT_PROGRAM:

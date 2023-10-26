@@ -1,0 +1,10 @@
+program
+    x = read;       
+    expoente = read;       
+    result = 1;  
+    while expoente > 0 do
+        result = result * x;
+        expoente = expoente - 1;
+    done;
+
+    output result;
